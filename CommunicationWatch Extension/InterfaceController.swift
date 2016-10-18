@@ -47,6 +47,13 @@ class InterfaceController: WKInterfaceController, WCSessionDelegate {
         WCSession.default().sendMessage(
             message, replyHandler: { (replyMessage) -> Void in
                 print("Chegou: \(replyMessage)")
+                if let mensagem: String = replyMessage["message"] as? String {
+                    self.myLabel.setText(mensagem)
+                } else {
+                    self.myLabel.setText("")
+                }
+                
+                
         }) { (error) -> Void in
             print(error.localizedDescription)
         }

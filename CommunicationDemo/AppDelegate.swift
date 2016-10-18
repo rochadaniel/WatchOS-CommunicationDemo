@@ -62,8 +62,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelegate {
         print("Chegou: \(message)")
     }
     
-    func session(_ session: WCSession, didReceiveMessageData messageData: Data) {
+    func session(_ session: WCSession, didReceiveMessageData messageData: Data, replyHandler: @escaping (Data) -> Void) {
+        print("Chegando")
+    }
+    
+    func session(_ session: WCSession, didReceiveMessage message: [String : Any], replyHandler: @escaping ([String : Any]) -> Void) {
         
+        replyHandler(["message": "Hello Watch!"])
+        print("Chegou222: \(message)")
+        
+    }
+    
+    func session(_ session: WCSession, didReceiveMessageData messageData: Data) {
+        print("Chegou333")
     }
     
     func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
