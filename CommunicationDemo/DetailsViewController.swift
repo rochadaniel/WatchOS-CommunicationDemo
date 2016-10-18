@@ -38,7 +38,7 @@ class DetailsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        if let name = UserDefaults.standard.value(forKey: "name") {
+        if let name = UserDefaults.standard.value(forKey: "name") as? String {
             nameLabel.text = "\(name)"
         }
         

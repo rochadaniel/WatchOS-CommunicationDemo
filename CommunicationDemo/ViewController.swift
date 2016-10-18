@@ -18,6 +18,11 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        if let name = UserDefaults.standard.value(forKey: "name") as? String {
+            passLabel.text = name
+        } else {
+            passLabel.text = "test"
+        }
     }
 
     override func didReceiveMemoryWarning() {
