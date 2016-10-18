@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import WatchConnectivity
 
 class DetailsViewController: UIViewController {
 
@@ -15,25 +14,6 @@ class DetailsViewController: UIViewController {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var valueLabel: UILabel!
     
-    private let session: WCSession? = WCSession.isSupported() ? WCSession.default() : nil
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        
-        configureWCSession()
-    }
-    
-    
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-        
-        configureWCSession()
-    }
-    
-    private func configureWCSession() {
-        session?.delegate = self
-        session?.activate()
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -76,30 +56,3 @@ class DetailsViewController: UIViewController {
 
 }
 
-// MARK: WCSessionDelegate
-extension DetailsViewController: WCSessionDelegate {
-    
-    func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
-        
-    }
-    
-    func sessionDidBecomeInactive(_ session: WCSession) {
-        
-    }
-    
-    func sessionDidDeactivate(_ session: WCSession) {
-        
-    }
-    
-    func session(session: WCSession, didReceiveMessage message: [String : AnyObject], replyHandler: ([String : AnyObject]) -> Void) {
-        
-        //Use this to update the UI instantaneously (otherwise, takes a little while)
-        //dispatch_async(dispatch_get_main_queue()) {
-        //if let counterValue = message["counterValue"] as? Int {
-        //self.counterData.append(counterValue)
-        //self.mainTableView.reloadData()
-        print("chegou")
-        //}
-        //}
-    }
-}

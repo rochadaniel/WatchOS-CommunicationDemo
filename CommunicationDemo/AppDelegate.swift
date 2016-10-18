@@ -7,15 +7,24 @@
 //
 
 import UIKit
+import WatchConnectivity
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, WCSessionDelegate {
 
     var window: UIWindow?
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+    
+        
+        if (WCSession.isSupported()) {
+            let session = WCSession.default()
+            session.delegate = self // conforms to WCSessionDelegate
+            session.activate()
+        }
+        
         return true
     }
 
@@ -41,6 +50,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 
+    // =========================================================================
+    // MARK: - WCSessionDelegate
+    
+    func sessionWatchStateDidChange(_ session: WCSession) {
+        print(session)
+        print("reachable:\(session.isReachable)")
+    }
+    
+    func session(_ session: WCSession, didReceiveMessage message: [String : Any]) {
+        print("Chegou: \(message)")
+    }
+    
+    func session(_ session: WCSession, didReceiveMessageData messageData: Data) {
+        
+    }
+    
+    func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
+        print("1")
+    }
+    
+    func sessionDidBecomeInactive(_ session: WCSession) {
+        print("2")
+    }
+    
+    func sessionDidDeactivate(_ session: WCSession) {
+        print("3")
+    }
 
 }
 
